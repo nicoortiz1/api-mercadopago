@@ -11,4 +11,4 @@ app.use(express.json());
 app.use(paymentRoutes)
 
 app.listen(PORT)
-console.log('Server on port', PORT)
+console.log('Server on port', PORT) 
