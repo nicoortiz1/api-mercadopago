@@ -1,29 +1,30 @@
 import mercadopago from 'mercadopago';
 import { MercadoPagoConfig, Preference } from 'mercadopago';
+import dotenv from 'dotenv';
+dotenv.config();
+
 
 export const createOrder = async (req, res) => {
     try {
         const client = new MercadoPagoConfig({
-            accessToken: 'TEST-6702637773184768-070510-7e66b2bcf0948334db02a21411a23fa4-229906939',
-            integrator_id: 'dev_24c65fb163bf11ea96500242ac130004',
+            accessToken: process.env.ACCESS_TOKEN,
+            integrator_id: process.env.INTEGRATOR_ID,
             options: { timeout: 5000, idempotencyKey: 'abc' }
         });
 
-        // Crear instancia de Preference
-        const preference = new Preference(client);
-
         // Definir los detalles de la preferencia
         const body = {
+                         
             items: [
                 {
-                    id: "item-ID-1234",
-                    title: "Mi producto",
+                    id: "1234",
+                    title: req.body.title,
                     currency_id: "ARS",
                     picture_url: "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
                     description: "Descripción del Item",
                     category_id: "art",
-                    quantity: 1,
-                    unit_price: 75.76
+                    quantity: Number(req.body.quantity),
+                    unit_price: Number(req.body.price),
                 }
             ],
             payer: {
@@ -53,7 +54,7 @@ export const createOrder = async (req, res) => {
             payment_methods: {
                 excluded_payment_methods: [
                     {
-                        id: "master"
+                        id: "visa"
                     }
                 ],
                 excluded_payment_types: [
@@ -61,15 +62,25 @@ export const createOrder = async (req, res) => {
                         id: "ticket"
                     }
                 ],
-                installments: 12
+                installments: 6
             },
             notification_url: "https://eight-eggs-tap.loca.lt/webhook",
             statement_descriptor: "MINEGOCIO",
             external_reference: "Reference_1234",
-            expires: true
+            expires: true,
+            integrator_id: process.env.INTEGRATOR_ID,
             //"expiration_date_from": "2016-02-01T12:00:00.000-04:00",
             //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
+            back_urls: {
+                success: "https://www.success.com",
+                failure: "https://www.failure.com",
+                pending: "https://www.pending.com"
+            },
+            auto_return: "approved",
         };
+
+        // Crear instancia de Preference
+        const preference = new Preference(client);
 
         // Crear la preferencia
         const response = await preference.create({ body });
@@ -79,7 +90,8 @@ export const createOrder = async (req, res) => {
         if (response.api_response.status === 201) {
             res.json({
                 message: 'La preferencia fue creada exitosamente.',
-                data: response
+                data: response,
+                id: response.id
             });
         } else {
             res.json({
