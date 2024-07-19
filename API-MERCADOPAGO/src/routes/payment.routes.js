@@ -1,6 +1,7 @@
 import { Router } from "express";
-import { createOrder, receiveWebhook } from "../controllers/payment.controllers.js";
+import { createOrder} from "../controllers/payment.controllers.js";
 import path from 'path';
+import { receiveWebhook } from "../controllers/webhook.controllers.js";
 
 const router = Router()
 
@@ -8,7 +9,7 @@ router.post('/create-orden', createOrder);
 
 router.get('/success', (req, res) => res.send('success'))
 
-router.get('/webhook', receiveWebhook )
+router.post('/webhook', receiveWebhook )
 
 router.get('/', (req, res) => {
     res.sendFile(path.join(__dirname, '../views/vista.js'));

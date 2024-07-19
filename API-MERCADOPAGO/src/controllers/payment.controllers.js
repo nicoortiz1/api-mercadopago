@@ -45,11 +45,6 @@ export const createOrder = async (req, res) => {
                     zip_code: "5700"
                 }
             },
-            back_urls: {
-                success: "https://www.success.com",
-                failure: "https://www.failure.com",
-                pending: "https://www.pending.com"
-            },
             auto_return: "approved",
             payment_methods: {
                 excluded_payment_methods: [
@@ -107,9 +102,4 @@ export const createOrder = async (req, res) => {
             details: error.message // Detalles del error para depuración
         });
     }
-};
-
-export const receiveWebhook = (req, res) => {
-    console.log(req.query);
-    res.send("webhook");
 };
