@@ -8,7 +8,6 @@ export const createOrder = async (req, res) => {
     try {
         const client = new MercadoPagoConfig({
             accessToken: process.env.ACCESS_TOKEN,
-            integrator_id: process.env.INTEGRATOR_ID,
             options: { timeout: 5000, idempotencyKey: 'abc' }
         });
 
@@ -45,7 +44,6 @@ export const createOrder = async (req, res) => {
                     zip_code: "5700"
                 }
             },
-            auto_return: "approved",
             payment_methods: {
                 excluded_payment_methods: [
                     {
@@ -59,11 +57,10 @@ export const createOrder = async (req, res) => {
                 ],
                 installments: 6
             },
-            notification_url: "https://eight-eggs-tap.loca.lt/webhook",
+            notification_url: "https://clean-guests-smile.loca.lt/webhook",
             statement_descriptor: "MINEGOCIO",
             external_reference: "Reference_1234",
             expires: true,
-            integrator_id: process.env.INTEGRATOR_ID,
             //"expiration_date_from": "2016-02-01T12:00:00.000-04:00",
             //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
             back_urls: {
@@ -102,4 +99,11 @@ export const createOrder = async (req, res) => {
             details: error.message // Detalles del error para depuración
         });
     }
+};
+
+export const receiveWebhook = (req, res) => {
+    const payment = req.query
+
+    console.log("hoalaas");
+    res.send("webhook");
 };
