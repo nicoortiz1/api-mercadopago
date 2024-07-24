@@ -41,7 +41,8 @@ const createCheckoutButton = (preferenceId) => {
                     preferenceId: preferenceId,
                 },
                 headers: {
-                    "x-integrator-id": 'dev_24c65fb163bf11ea96500242ac130004' // Asegúrate de reemplazar con el ID de integrador correcto
+                    "Content-Type": "application/json",
+                    "x-integrator-id": "dev_24c65fb163bf11ea96500242ac130004" // Asegúrate de reemplazar con el ID de integrador correcto
                 }
                 /*
                 customization: {

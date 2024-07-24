@@ -10,7 +10,7 @@ export const createOrder = async (req, res) => {
             accessToken: process.env.ACCESS_TOKEN,
             options: { timeout: 5000, idempotencyKey: 'abc' }
         });
-
+        
         // Definir los detalles de la preferencia
         const body = {
                          
@@ -57,10 +57,10 @@ export const createOrder = async (req, res) => {
                 ],
                 installments: 6
             },
-            notification_url: "https://clean-guests-smile.loca.lt/webhook",
+            notification_url: "https://whole-ducks-wait.loca.lt/webhook",
             statement_descriptor: "MINEGOCIO",
             external_reference: "Reference_1234",
-            expires: true,
+            //expires: true,
             //"expiration_date_from": "2016-02-01T12:00:00.000-04:00",
             //"expiration_date_to": "2016-02-28T12:00:00.000-04:00"
             back_urls: {
@@ -101,9 +101,4 @@ export const createOrder = async (req, res) => {
     }
 };
 
-export const receiveWebhook = (req, res) => {
-    const payment = req.query
 
-    console.log("hoalaas");
-    res.send("webhook");
-};
