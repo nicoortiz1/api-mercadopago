@@ -8,7 +8,7 @@ export const createOrder = async (req, res) => {
     try {
         const client = new MercadoPagoConfig({
             accessToken: process.env.ACCESS_TOKEN,
-            options: { timeout: 5000, idempotencyKey: 'abc' }
+            options: { timeout: 5000, idempotencyKey: 'abc', /*integratorId: process.env.INTEGRATOR_ID */}
         });
         
         // Definir los detalles de la preferencia
@@ -17,13 +17,16 @@ export const createOrder = async (req, res) => {
             items: [
                 {
                     id: "1234",
-                    title: req.body.title,
+                    //title: req.body.title,
+                    title: "manzanaa",
                     currency_id: "ARS",
                     picture_url: "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
                     description: "Descripción del Item",
                     category_id: "art",
-                    quantity: Number(req.body.quantity),
-                    unit_price: Number(req.body.price),
+                    //quantity: Number(req.body.quantity),
+                    quantity: 1,
+                    //unit_price: Number(req.body.price),
+                    unit_price: 2000
                 }
             ],
             payer: {
@@ -57,7 +60,7 @@ export const createOrder = async (req, res) => {
                 ],
                 installments: 6
             },
-            notification_url: "https://whole-ducks-wait.loca.lt/webhook",
+            notification_url: "https://88c038ec4b185ddeb7337aa130e0acce.serveo.net/webhook",
             statement_descriptor: "MINEGOCIO",
             external_reference: "Reference_1234",
             //expires: true,
@@ -75,7 +78,7 @@ export const createOrder = async (req, res) => {
         const preference = new Preference(client);
 
         // Crear la preferencia
-        const response = await preference.create({ body });
+        const response = await preference.create({body});
         console.log('Respuesta de la preferencia:', response);
 
         // Verificar y enviar la respuesta al cliente
