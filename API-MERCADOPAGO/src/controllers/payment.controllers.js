@@ -8,7 +8,7 @@ export const createOrder = async (req, res) => {
     try {
         const client = new MercadoPagoConfig({
             accessToken: process.env.ACCESS_TOKEN,
-            options: { timeout: 5000, idempotencyKey: 'abc', /*integratorId: process.env.INTEGRATOR_ID */}
+            options: { timeout: 5000, idempotencyKey: 'abc', integratorId: process.env.INTEGRATOR_ID }
         });
         
         // Definir los detalles de la preferencia
@@ -29,6 +29,7 @@ export const createOrder = async (req, res) => {
                     unit_price: 2000
                 }
             ],
+            metadata: {},// id de la base de datos de lo que se quiere modificar sisa
             payer: {
                 name: "Juan",
                 surname: "Lopez",
@@ -60,7 +61,7 @@ export const createOrder = async (req, res) => {
                 ],
                 installments: 6
             },
-            notification_url: "https://88c038ec4b185ddeb7337aa130e0acce.serveo.net/webhook",
+            notification_url: "https://b2f4-45-5-154-78.ngrok-free.app/webhook",
             statement_descriptor: "MINEGOCIO",
             external_reference: "Reference_1234",
             //expires: true,

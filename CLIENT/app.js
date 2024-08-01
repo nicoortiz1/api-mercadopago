@@ -1,6 +1,5 @@
 const mp = new MercadoPago('APP_USR-0c416d7f-7422-47c5-ab37-15076be928ba', {
     locale: "es-AR",
-    integrator_id: 'dev_24c65fb163bf11ea96500242ac130004'
 });
 
 document.getElementById("checkout-btn").addEventListener("click", async () => {
@@ -15,7 +14,6 @@ document.getElementById("checkout-btn").addEventListener("click", async () => {
             method: "POST",
             headers: {
                 "Content-type": "application/json",
-                "x-integrator-id": 'dev_24c65fb163bf11ea96500242ac130004'
             },
             body: JSON.stringify(orderData)
         });
@@ -41,8 +39,7 @@ const createCheckoutButton = (preferenceId) => {
                     preferenceId: preferenceId,
                 },
                 headers: {
-                    "Content-Type": "application/json",
-                    "x-integrator-id": "dev_24c65fb163bf11ea96500242ac130004" // Asegúrate de reemplazar con el ID de integrador correcto
+                    "Content-Type": "application/json"
                 }
                 /*
                 customization: {
