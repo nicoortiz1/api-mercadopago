@@ -17,16 +17,16 @@ export const createOrder = async (req, res) => {
             items: [
                 {
                     id: "1234",
-                    //title: req.body.title,
-                    title: "manzanaa",
+                    title: req.body.title,
+                    //title: "manzanaa",
                     currency_id: "ARS",
                     picture_url: "https://www.mercadopago.com/org-img/MP3/home/logomp3.gif",
                     description: "Descripción del Item",
                     category_id: "art",
-                    //quantity: Number(req.body.quantity),
-                    quantity: 1,
-                    //unit_price: Number(req.body.price),
-                    unit_price: 2000
+                    quantity: Number(req.body.quantity),
+                    //quantity: 1,
+                    unit_price: Number(req.body.price),
+                    //unit_price: 2000
                 }
             ],
             metadata: {},// id de la base de datos de lo que se quiere modificar sisa
